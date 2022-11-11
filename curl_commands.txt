@@ -1,0 +1,51 @@
+curl -i http://127.0.0.1:5000/widgets \
+-X POST \
+-H 'Content-Type: application/json' \
+-d '{"name": "thing 1", "number_of_parts": 2}'
+
+
+curl -i http://127.0.0.1:5000/widgets/1 \
+-X DELETE \
+-H 'Content-Type: application/json' \
+
+
+curl -i http://127.0.0.1:5000/widgets/1 \
+-X PUT \
+-H 'Content-Type: application/json' \
+-d '{"number_of_parts": 3}'
+
+SELECT * FROM sqlite_master WHERE type='table' AND name='widget';
+
+
+
+# creating db and db table
+import sqlite3
+conn = sqlite3.connect("/Users/adomin/Documents/Python/Flask_API/widgets.db")
+columns = [
+    "id INTEGER PRIMARY KEY",
+    "name STRING",
+    "number_of_parts INTEGER",
+    "create_date DATETIME",
+    "updated_date DATETIME"
+]
+create_table_cmd = f"CREATE TABLE widget ({','.join(columns)})"
+conn.execute(create_table_cmd)
+
+
+# importing JSON data to table
+import sqlite3
+conn = sqlite3.connect("widgets.db")
+widgets = [
+    "1, 'thing 1', '6', 'current_dateTime', 'current_dateTime'",
+    "2, 'thing 2', '7', 'current_dateTime', 'current_dateTime'",
+    "3, 'thing 3', '8', 'current_dateTime', 'current_dateTime'",
+]
+for widget_data in widgets:
+    insert_cmd = f"INSERT INTO widget VALUES ({widget_data})"
+    conn.execute(insert_cmd)
+
+conn.commit()
+
+
+
+basedir / 'widgets.db'
