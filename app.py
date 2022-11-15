@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, request, jsonify, make_response, abort
+from flask import Flask, request, jsonify, make_response, abort, render_template
 import sqlite3
 from config import db
 from models import Widget, widgets_schema, widget_schema
@@ -8,6 +8,18 @@ from models import Widget, widgets_schema, widget_schema
 # cur.execute("CREATE TABLE widget(name, number_of_parts, created_date, updated_date)")
 
 app = Flask(__name__)
+
+def get_db_connection():
+    conn = sqlite3.connect('widgets.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@app.route('/')
+def index():
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts').fetchall()
+    conn.close()
+    return render_template('index.html', posts=posts)
 
 # widgets = [
 #     {"id": 1, "name": "Thailand", "number of parts": "Bangkok", "created date": "now", "updated date": "then"},
@@ -23,7 +35,10 @@ def get_widgets():
     print("a")
     print(Widget)
     print(Widget.query)
+    # wd = Widget()
     widgets = Widget.query.all()
+    # for widget in widgets:
+    #     print(dir(widget))
     return widgets_schema.dump(widgets)
 
 @app.get("/widgets/<id>")

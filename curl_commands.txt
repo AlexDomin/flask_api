@@ -25,10 +25,10 @@ columns = [
     "id INTEGER PRIMARY KEY",
     "name STRING",
     "number_of_parts INTEGER",
-    "create_date DATETIME",
+    "created_date DATETIME",
     "updated_date DATETIME"
 ]
-create_table_cmd = f"CREATE TABLE widget ({','.join(columns)})"
+create_table_cmd = f"CREATE TABLE widgets ({','.join(columns)})"
 conn.execute(create_table_cmd)
 
 
@@ -41,11 +41,20 @@ widgets = [
     "3, 'thing 3', '8', 'current_dateTime', 'current_dateTime'",
 ]
 for widget_data in widgets:
-    insert_cmd = f"INSERT INTO widget VALUES ({widget_data})"
+    insert_cmd = f"INSERT INTO widgets VALUES ({widget_data})"
     conn.execute(insert_cmd)
-
-conn.commit()
+    conn.commit()
 
 
 
 basedir / 'widgets.db'
+
+
+/Users/adomin/Documents/Python/Flask_API/widgets.db
+
+
+
+KeyError: <weakref at 0x10a6ab6f0; to 'Flask' at 0x10755f5d0>
+
+
+create objects and persist.  already created an engine.  might not need "where"  statement will give you an iterable
