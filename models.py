@@ -14,6 +14,17 @@ class Widget(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
     )
 
+def __init__(self, **kwargs):
+    super(Widget, self).__init__(**kwargs)
+
+# def __init__(self, name, number_of_parts):
+#    self.name = name
+#    self.number_of_parts = number_of_parts
+   # self.created_date = created_date
+   # self.updated_date = updated_date
+
+# db.create_all()
+
 # class Widget(Base):
 #     __tablename__ = "widgets"
 #     id = Column(Integer, primary_key=True)
