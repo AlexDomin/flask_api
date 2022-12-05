@@ -1,6 +1,12 @@
 curl -i http://127.0.0.1:5000/widgets \
 -X POST \
 -H 'Content-Type: application/json' \
+-d '{"name": "thing 4", "number_of_parts": 2}'
+
+
+curl -i http://127.0.0.1:5000/widgets \
+-X POST \
+-H 'Content-Type: application/json' \
 -d '{"name": "thing 4", "number_of_parts": 2, "created_at": current_dateTime, "updated_at": current_dateTime}'
 
 
